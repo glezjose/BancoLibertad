@@ -151,26 +151,29 @@ namespace BancoLibertad
 
                                         iIdCuentaDeposito = _oNormal.ValidarNumeroCuenta();
 
-                                        string cConcepto = _oNormal.ObtenerConcepto();
-                                        bool verificador = true;
-
-                                        while (verificador)
+                                        if (iIdCuentaDeposito!=-1)
                                         {
-                                            try
+                                            string cConcepto = _oNormal.ObtenerConcepto();
+                                            bool verificador = true;
+
+                                            while (verificador)
                                             {
-                                                decimal dMonto = _oNormal.MontoDepositar();
-                                                verificador = false;
-                                                _oNormal.Depositar(iIdCuentaDeposito, iTipoCuenta, dMonto, cConcepto);
+                                                try
+                                                {
+                                                    decimal dMonto = _oNormal.MontoDepositar();
+                                                    verificador = false;
+                                                    _oNormal.Depositar(iIdCuentaDeposito, iTipoCuenta, dMonto, cConcepto);
 
 
+                                                }
+                                                catch (FormatException)
+                                                {
+                                                    Console.WriteLine("\nPor favor ingrese un monto válido, intente de nuevo...\n");
+                                                    verificador = true;
+                                                }
                                             }
-                                            catch (FormatException)
-                                            {
-                                                Console.WriteLine("\nPor favor ingrese un monto válido, intente de nuevo...\n");
-                                                verificador = true;
-                                            }
+
                                         }
-
 
                                     }
                                     else if (_iOpcionCuenta == 2)
@@ -179,25 +182,28 @@ namespace BancoLibertad
 
                                         iIdCuentaDeposito = _oUniversitario.ValidarNumeroCuenta();
 
-                                        string cConcepto = _oUniversitario.ObtenerConcepto();
-                                        bool verificador = true;
-
-                                        while (verificador)
+                                       if (iIdCuentaDeposito!=-1)
                                         {
-                                            try
+                                            string cConcepto = _oUniversitario.ObtenerConcepto();
+                                            bool verificador = true;
+
+                                            while (verificador)
                                             {
-                                                decimal dMonto = _oUniversitario.MontoDepositar();
+                                                try
+                                                {
+                                                    decimal dMonto = _oUniversitario.MontoDepositar();
 
-                                                verificador = false;
+                                                    verificador = false;
 
-                                                _oUniversitario.Depositar(iIdCuentaDeposito, iTipoCuenta, dMonto, cConcepto);
+                                                    _oUniversitario.Depositar(iIdCuentaDeposito, iTipoCuenta, dMonto, cConcepto);
 
-                                                lValidar = false;
-                                            }
-                                            catch (FormatException)
-                                            {
-                                                Console.WriteLine("\nPor favor ingrese un monto válido, intente de nuevo...\n");
-                                                verificador = true;
+                                                    lValidar = false;
+                                                }
+                                                catch (FormatException)
+                                                {
+                                                    Console.WriteLine("\nPor favor ingrese un monto válido, intente de nuevo...\n");
+                                                    verificador = true;
+                                                }
                                             }
                                         }
                                     }
