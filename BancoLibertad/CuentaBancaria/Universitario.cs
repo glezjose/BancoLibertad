@@ -138,6 +138,11 @@ namespace BancoLibertad.CuentaBancaria
                 Console.WriteLine("No existe este número de cuenta.");
                 iIdCuenta = -1;
             }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("No existe este número de cuenta.");
+                iIdCuenta = -1;
+            }
             return iIdCuenta;
         }
 
