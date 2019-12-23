@@ -156,21 +156,5 @@ namespace BancoLibertad.CuentaBancaria
 
 
         }
-        public new void Depositar(int iIdCuenta, int iTipoCuenta, decimal dMonto)
-        {
-            if (iTipoCuenta == 1)
-            {
-                _lstNormal[iIdCuenta].dSaldo += dMonto;
-                Console.WriteLine("\n\nSe a depositado con exito: $" + dMonto + " a tu cuenta con numero: " + _lstNormal[iIdCuenta].iIdClienteNormal);
-            }
-            else if (iTipoCuenta == 2)
-            {
-                _lstUniversitarios[iIdCuenta].dSaldo += dMonto;
-                Console.WriteLine("\n\nSe a depositado con exito: $" + dMonto + " a tu cuenta universitaria con numero: " + _lstUniversitarios[iIdCuenta].iIdClienteUniversitario);
-            }
-
-
-        }
-
     }
 }
