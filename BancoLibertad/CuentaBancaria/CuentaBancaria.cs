@@ -5,15 +5,38 @@ namespace BancoLibertad.CuentaBancaria
 {
     public abstract class CuentaBancaria: IDepositar
     {
+        /// <summary>
+        /// Lista declarada para los clientes con cuentas universitarias.
+        /// </summary>
         public List<Cliente.Universitario> _lstUniversitarios;
+        /// <summary>
+        /// Lista declarada para los clientes con cuentas normales.
+        /// </summary>
         public List<Cliente.Normal> _lstNormal;
 
+        /// <summary>
+        /// Método abstracto para retirar fondos de una cuenta.
+        /// </summary>
+        /// <param name="iIdCuenta">La ID de la cuenta que se desea retirar fondos.</param>
+        /// <param name="dMonto">El monto a retirar.</param>
         public abstract void Retirar(int iIdCuenta, decimal dMonto);
 
+        /// <summary>
+        /// Método abstracto para registrar una cuenta nueva.
+        /// </summary>
+        /// <returns></returns>
         public abstract int RegistrarCuenta();
 
+        /// <summary>
+        /// Método abstracto para ingresar a una cuenta.
+        /// </summary>
+        /// <returns></returns>
         public abstract int IngresarCuenta();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public abstract int ValidarNumeroCuenta();
 
         public string ConsultarSaldo(decimal dSaldo) {
