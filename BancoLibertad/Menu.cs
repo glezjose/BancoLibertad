@@ -85,7 +85,7 @@ namespace BancoLibertad
                         return false;
                     }
 
-                   
+
 
                 case "3":
                     return false;
@@ -125,7 +125,7 @@ namespace BancoLibertad
                         {
                             Console.WriteLine("Por favor ingrese un monto válido.");
                         }
-                         lValidar = true;
+                        lValidar = true;
                         break;
 
                     case "2":
@@ -151,15 +151,16 @@ namespace BancoLibertad
 
                                         string cConcepto = _oNormal.ObtenerConcepto();
                                         bool verificador = true;
+
                                         while (verificador)
                                         {
                                             try
                                             {
                                                 decimal dMonto = _oNormal.MontoDepositar();
                                                 verificador = false;
-                                                _oNormal.Depositar(iIdCuentaDeposito,iTipoCuenta,dMonto,cConcepto);
-                                               
-                                               
+                                                _oNormal.Depositar(iIdCuentaDeposito, iTipoCuenta, dMonto, cConcepto);
+
+
                                             }
                                             catch (FormatException)
                                             {
@@ -177,9 +178,8 @@ namespace BancoLibertad
                                         iIdCuentaDeposito = _oUniversitario.ValidarNumeroCuenta();
 
                                         string cConcepto = _oUniversitario.ObtenerConcepto();
-
-
                                         bool verificador = true;
+
                                         while (verificador)
                                         {
                                             try
@@ -189,7 +189,7 @@ namespace BancoLibertad
                                                 verificador = false;
 
                                                 _oUniversitario.Depositar(iIdCuentaDeposito, iTipoCuenta, dMonto, cConcepto);
-                                               
+
                                                 lValidar = false;
                                             }
                                             catch (FormatException)
@@ -202,7 +202,7 @@ namespace BancoLibertad
                                     else
                                     {
                                         Console.WriteLine("Por favor elija una opción valida.");
-                                       
+
                                     }
 
                                 }
@@ -210,7 +210,7 @@ namespace BancoLibertad
                                 {
                                     Console.WriteLine("Por favor elija una opción valida.");
                                 }
-                               
+
 
                             }
                             else if (_iOpcionDeposito == 2)
@@ -219,7 +219,7 @@ namespace BancoLibertad
                                 try
                                 {
                                     int _iOpcionCuenta = Convert.ToInt32(Console.ReadLine());
-                                   
+
 
                                     if (_iOpcionCuenta == 1)
                                     {
@@ -232,7 +232,7 @@ namespace BancoLibertad
                                             {
                                                 decimal dMonto = _oNormal.MontoDepositar();
                                                 verificador = false;
-                                                _oNormal.Depositar(iIdCuenta,iTipoCuenta, dMonto);
+                                                _oNormal.Depositar(iIdCuenta, iTipoCuenta, dMonto);
 
 
                                             }
@@ -306,7 +306,7 @@ namespace BancoLibertad
                         lValidar = true;
                         break;
 
-                   case "4":
+                    case "4":
                         Console.Clear();
                         lValidar = false;
                         break;
@@ -320,9 +320,7 @@ namespace BancoLibertad
             }
         }
 
-        public
-
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Normal _oNormal = new Normal();
             Universitario _oUniversitario = new Universitario();
