@@ -12,16 +12,16 @@ namespace BancoLibertad.CuentaBancaria
             Cliente.Normal oNormal = new Cliente.Normal();
             try
             {
-                Console.Write("Por favor ingrese su nombre: ");
+                Console.Write("Ingrese su Nombre: ");
                 oNormal.cNombre = Console.ReadLine();
 
-                Console.Write("Por favor ingrese su apellido: ");
+                Console.Write("Ingrese su Apellido: ");
                 oNormal.cApellido = Console.ReadLine();
 
-                Console.Write("Por favor ingrese el Nombre de su empresa: ");
+                Console.Write("Ingrese el Nombre de su Empresa: ");
                 oNormal.cEmpresa = Console.ReadLine();
 
-                Console.Write("Por favor ingrese un NIP para su cuenta: ");
+                Console.Write("Ingrese un NIP para su cuenta: ");
                 oNormal.iNIP = Convert.ToInt32(Console.ReadLine());
 
                 if (_lstNormal == null)
@@ -41,8 +41,8 @@ namespace BancoLibertad.CuentaBancaria
                 _lstNormal.Add(oNormal);
 
                 Console.Clear();
-                Console.WriteLine("Bienvenido, " + oNormal.cNombre + ".\n");
-                Console.WriteLine("Su numero de cuenta es: " + oNormal.iIdClienteNormal);
+                Console.WriteLine("\nBienvenido, " + oNormal.cNombre + ".\n");
+                Console.WriteLine("\nSu numero de cuenta es: " + oNormal.iIdClienteNormal+ "\n");
             }
             catch (FormatException)
             {
@@ -57,17 +57,19 @@ namespace BancoLibertad.CuentaBancaria
             int iIdCuenta;
             try
             {
-                Console.WriteLine("Por favor ingrese su número de cuenta: ");
+                Console.WriteLine("Ingrese su número de cuenta: ");
                 iIdCuenta = Convert.ToInt32(Console.ReadLine());
                 try
                 {
                     if (iIdCuenta == _lstNormal[iIdCuenta].iIdClienteNormal)
                     {
-                        Console.WriteLine("Por favor ingrese su NIP: ");
+                        Console.WriteLine("Digite su NIP: ");
                         int iNIP = Convert.ToInt32(Console.ReadLine());
                         if (iNIP != _lstNormal[iIdCuenta].iNIP)
                         {
-                            Console.WriteLine("El NIP ingresado es incorrecto.");
+                            Console.WriteLine("\nEl NIP ingresado es incorrecto,redirigiendo al menú principal...\n");
+                            iIdCuenta = -1;
+
                         }
                         else
                         {
@@ -78,7 +80,7 @@ namespace BancoLibertad.CuentaBancaria
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Console.WriteLine("No existe este número de cuenta.");
+                    Console.WriteLine("\nLa cuenta a la cual quiere ingresar no existe, redirigiendo al Menú Principal...");
                     iIdCuenta = -1;
                 }
 
@@ -87,6 +89,15 @@ namespace BancoLibertad.CuentaBancaria
             {
                 Console.WriteLine("Por favor ingrese un número válido.");
                 iIdCuenta = -1;
+
+                
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("\nLa cuenta a la cual quiere ingresar no existe, redirigiendo al Menú Principal...");
+                iIdCuenta = -1;
+
+                
             }
             return iIdCuenta;
         }
@@ -99,7 +110,7 @@ namespace BancoLibertad.CuentaBancaria
             }
             else
             {
-                Console.WriteLine("Usted no cuenta con el saldo suficiente para realizar esta transacción.");
+                Console.WriteLine("\nUsted no cuenta con el saldo suficiente para realizar esta transacción.");
             }
         }
 
@@ -112,7 +123,7 @@ namespace BancoLibertad.CuentaBancaria
             {
                 if (iIdCuenta == _lstNormal[iIdCuenta].iIdClienteNormal)
                 {
-                    Console.WriteLine("El número de cuenta ingresado le pertenece a, " + _lstNormal[iIdCuenta].cNombre + " " + _lstNormal[iIdCuenta].cApellido + ".");
+                    Console.WriteLine("\nEl número de cuenta ingresado le pertenece a, " + _lstNormal[iIdCuenta].cNombre + " " + _lstNormal[iIdCuenta].cApellido + ".");
                 }
             }
             catch (ArgumentOutOfRangeException)
@@ -122,6 +133,40 @@ namespace BancoLibertad.CuentaBancaria
             }
             return iIdCuenta;
         }
+
+        public new void Depositar(int iIdCuentaDeposito, int iTipoCuenta, decimal dMonto, string cConcepto)
+        {
+            if (iTipoCuenta==1)
+            {
+                _lstNormal[iIdCuentaDeposito].dSaldo += dMonto;
+                Console.WriteLine("\n\nSe a depositado con exito: $"+dMonto+" a la cuenta de "+ _lstNormal[iIdCuentaDeposito].cNombre+" "+ _lstNormal[iIdCuentaDeposito].cApellido+" por concepto de "+cConcepto);
+            }
+            else if (iTipoCuenta==2)
+            {
+                _lstUniversitarios[iIdCuentaDeposito].dSaldo += dMonto;
+                Console.WriteLine("\n\nSe a depositado con exito: $" + dMonto + " a la cuenta universitaria de " + _lstNormal[iIdCuentaDeposito].cNombre + " " + _lstNormal[iIdCuentaDeposito].cApellido + " por concepto de " + cConcepto);
+            }
+            
+            
+        }
+
+
+        public new void Depositar(int iIdCuenta, int iTipoCuenta, decimal dMonto)
+        {
+            if (iTipoCuenta == 1)
+            {
+                _lstNormal[iIdCuenta].dSaldo += dMonto;
+                Console.WriteLine("\n\nSe a depositado con exito: $" + dMonto + " a tu cuenta con numero: " + _lstNormal[iIdCuenta].iIdClienteNormal);
+            }
+            else if (iTipoCuenta == 2)
+            {
+                _lstUniversitarios[iIdCuenta].dSaldo += dMonto;
+                Console.WriteLine("\n\nSe a depositado con exito: $" + dMonto + " a tu cuenta universitaria con numero: " + _lstUniversitarios[iIdCuenta].iIdClienteUniversitario);
+            }
+
+
+        }
+
     }
 }
 

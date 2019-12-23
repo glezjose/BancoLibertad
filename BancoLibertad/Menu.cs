@@ -10,14 +10,14 @@ namespace BancoLibertad
         public static short iTipoCuenta;
         public static bool OpcionMenu(Normal _oNormal, Universitario _oUniversitario)
         {
-            Console.WriteLine("\nBienvenido a Banco Libertad, que movimiento desea realizar?");
+            Console.WriteLine("\nBienvenido a Banco Libertad, ¿Que movimiento desea realizar?\n");
             Console.WriteLine("1. Registrar Cuenta\n2. Ingresar a cuenta\n3. Salir");
 
             switch (Console.ReadLine())
             {
                 case "1":
-                    Console.WriteLine("Elija el tipo de cuenta por favor.");
-                    Console.WriteLine("1. Cuenta Normal\n2. Cuenta Universitaria");
+                    Console.WriteLine("\nElija el tipo de cuenta a registrar por favor.");
+                    Console.WriteLine("\n1. Cuenta Normal\n2. Cuenta Universitaria");
 
                     try
                     {
@@ -35,24 +35,22 @@ namespace BancoLibertad
                         }
                         else
                         {
+                            iIdCuenta = -1;
                             Console.WriteLine("Por favor elija una opción valida.");
                         }
-
+                        if (iIdCuenta != -1)
+                        {
+                            OpcionMovimiento(_oNormal, _oUniversitario, iTipoCuenta);
+                        }
                     }
                     catch (FormatException)
                     {
                         Console.WriteLine("Por favor elija una opción valida.");
                     }
-
-                    if (iIdCuenta != -1)
-                    {
-                        OpcionMovimiento(_oNormal, _oUniversitario, iTipoCuenta);
-                    }
-
                     return true;
 
                 case "2":
-                    Console.WriteLine("Elija el tipo de cuenta por favor.");
+                    Console.WriteLine("Elija el tipo de cuenta a la cual desea ingresar");
                     Console.WriteLine("1. Cuenta Normal\n2. Cuenta Universitaria");
 
                     try
@@ -74,24 +72,27 @@ namespace BancoLibertad
                             Console.WriteLine("Por favor elija una opción valida.");
                         }
 
+
+                        if (iIdCuenta != -1)
+                        {
+                            OpcionMovimiento(_oNormal, _oUniversitario, iTipoCuenta);
+                        }
+                        return true;
                     }
                     catch (FormatException)
                     {
-                        Console.WriteLine("Por favor elija una opción valida.");
+                        Console.WriteLine("Por favor elija una opción valida.sdxcsdfs");
+                        return false;
                     }
 
-                    if (iIdCuenta != -1)
-                    {
-                        OpcionMovimiento(_oNormal, _oUniversitario, iTipoCuenta);
-                    }
+                   
 
-                    return true;
                 case "3":
                     return false;
 
                 default:
                     Console.Clear();
-                    Console.WriteLine("Por favor elija una opción valida.");
+                    Console.WriteLine("\nPor favor elija una opción valida.");
                     return true;
             }
         }
@@ -100,7 +101,7 @@ namespace BancoLibertad
             bool lValidar = true;
             while (lValidar)
             {
-                Console.WriteLine("1. Retirar\n2. Depositar\n3. Consultar Saldo");
+                Console.WriteLine("\nSeleccione una operación a realizar:\n\n1. Retirar\n2. Depositar\n3. Consultar Saldo\n4. Menú Principal");
 
                 switch (Console.ReadLine())
                 {
@@ -124,23 +125,23 @@ namespace BancoLibertad
                         {
                             Console.WriteLine("Por favor ingrese un monto válido.");
                         }
-                        lValidar = false;
+                         lValidar = true;
                         break;
 
                     case "2":
-                        Console.WriteLine("1. Deposito a otra cuenta\n2. Deposito a cuenta personal");
+                        Console.WriteLine("\nSeleccione el tipo de deposito:\n\n1. Deposito a otra cuenta\n2. Deposito a cuenta personal");
                         try
                         {
                             int _iOpcionDeposito = Convert.ToInt32(Console.ReadLine());
 
                             if (_iOpcionDeposito == 1)
                             {
-                                Console.WriteLine("1. Cuenta Normal\n2. Cuenta Universitaria");
+                                Console.WriteLine("\nSeleccione el tipo de cuenta a depositar:\n\n1. Cuenta Normal\n2. Cuenta Universitaria");
 
                                 try
                                 {
                                     int _iOpcionCuenta = Convert.ToInt32(Console.ReadLine());
-                                    int iIdCuentaDeposito
+                                    int iIdCuentaDeposito;
 
                                     if (_iOpcionCuenta == 1)
                                     {
@@ -149,6 +150,25 @@ namespace BancoLibertad
                                         iIdCuentaDeposito = _oNormal.ValidarNumeroCuenta();
 
                                         string cConcepto = _oNormal.ObtenerConcepto();
+                                        bool verificador = true;
+                                        while (verificador)
+                                        {
+                                            try
+                                            {
+                                                decimal dMonto = _oNormal.MontoDepositar();
+                                                verificador = false;
+                                                _oNormal.Depositar(iIdCuentaDeposito,iTipoCuenta,dMonto,cConcepto);
+                                               
+                                               
+                                            }
+                                            catch (FormatException)
+                                            {
+                                                Console.WriteLine("\nPor favor ingrese un monto válido, intente de nuevo...\n");
+                                                verificador = true;
+                                            }
+                                        }
+
+
                                     }
                                     else if (_iOpcionCuenta == 2)
                                     {
@@ -157,10 +177,32 @@ namespace BancoLibertad
                                         iIdCuentaDeposito = _oUniversitario.ValidarNumeroCuenta();
 
                                         string cConcepto = _oUniversitario.ObtenerConcepto();
+
+
+                                        bool verificador = true;
+                                        while (verificador)
+                                        {
+                                            try
+                                            {
+                                                decimal dMonto = _oUniversitario.MontoDepositar();
+
+                                                verificador = false;
+
+                                                _oUniversitario.Depositar(iIdCuentaDeposito, iTipoCuenta, dMonto, cConcepto);
+                                               
+                                                lValidar = false;
+                                            }
+                                            catch (FormatException)
+                                            {
+                                                Console.WriteLine("\nPor favor ingrese un monto válido, intente de nuevo...\n");
+                                                verificador = true;
+                                            }
+                                        }
                                     }
                                     else
                                     {
                                         Console.WriteLine("Por favor elija una opción valida.");
+                                       
                                     }
 
                                 }
@@ -168,13 +210,74 @@ namespace BancoLibertad
                                 {
                                     Console.WriteLine("Por favor elija una opción valida.");
                                 }
-
-
+                               
 
                             }
                             else if (_iOpcionDeposito == 2)
                             {
-                               //Aqui va deposito a cuenta personal.
+                                Console.WriteLine("\nSeleccione su tipo de cuenta: \n\n1. Cuenta Normal\n2. Cuenta Universitaria");
+                                try
+                                {
+                                    int _iOpcionCuenta = Convert.ToInt32(Console.ReadLine());
+                                   
+
+                                    if (_iOpcionCuenta == 1)
+                                    {
+                                        iTipoCuenta = 1;
+
+                                        bool verificador = true;
+                                        while (verificador)
+                                        {
+                                            try
+                                            {
+                                                decimal dMonto = _oNormal.MontoDepositar();
+                                                verificador = false;
+                                                _oNormal.Depositar(iIdCuenta,iTipoCuenta, dMonto);
+
+
+                                            }
+                                            catch (FormatException)
+                                            {
+                                                Console.WriteLine("\nPor favor ingrese un monto válido, intente de nuevo...\n");
+                                                verificador = true;
+                                            }
+                                        }
+
+
+                                    }
+                                    else if (_iOpcionCuenta == 2)
+                                    {
+                                        iTipoCuenta = 2;
+                                        bool verificador = true;
+                                        while (verificador)
+                                        {
+                                            try
+                                            {
+                                                decimal dMonto = _oUniversitario.MontoDepositar();
+                                                verificador = false;
+                                                _oUniversitario.Depositar(iIdCuenta, iTipoCuenta, dMonto);
+
+                                            }
+                                            catch (FormatException)
+                                            {
+                                                Console.WriteLine("\nPor favor ingrese un monto válido, intente de nuevo...\n");
+                                                verificador = true;
+                                            }
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Por favor elija una opción valida.");
+
+                                    }
+
+
+                                }
+                                catch (FormatException)
+                                {
+                                    Console.WriteLine("Por favor elija una opción valida.");
+                                }
 
                             }
                             else
@@ -188,7 +291,7 @@ namespace BancoLibertad
                             Console.WriteLine("Por favor elija una opción valida.");
                         }
 
-                        lValidar = true;
+                        lValidar = false;
                         break;
 
                     case "3":
@@ -201,6 +304,11 @@ namespace BancoLibertad
                             Console.WriteLine(_oNormal.ConsultarSaldo(_oUniversitario._lstUniversitarios[iIdCuenta].dSaldo));
                         }
                         lValidar = true;
+                        break;
+
+                   case "4":
+                        Console.Clear();
+                        lValidar = false;
                         break;
 
                     default:
@@ -225,7 +333,7 @@ namespace BancoLibertad
             }
             catch (FormatException)
             {
-                Console.WriteLine("Por favor elija una opción valida.");
+                Console.WriteLine("Por favor elija una opción valida");
             }
         }
     }

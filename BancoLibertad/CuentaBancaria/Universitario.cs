@@ -12,19 +12,19 @@ namespace BancoLibertad.CuentaBancaria
             Cliente.Universitario oUniversitario = new Cliente.Universitario();
             try
             {
-                Console.Write("Por favor ingrese su nombre: ");
+                Console.Write("Ingrese su Nombre: ");
                 oUniversitario.cNombre = Console.ReadLine();
 
-                Console.Write("Por favor ingrese su apellido: ");
+                Console.Write("Ingrese su Apellido: ");
                 oUniversitario.cApellido = Console.ReadLine();
 
-                Console.Write("Por favor ingrese el Nombre de su tutor: ");
+                Console.Write("Ingrese el Nombre de su tutor: ");
                 oUniversitario.cNombreTutor = Console.ReadLine();
 
-                Console.Write("Por favor ingrese el Nombre de su universidad: ");
+                Console.Write("Ingrese el Nombre de su universidad: ");
                 oUniversitario.cInstituto = Console.ReadLine();
 
-                Console.Write("Por favor ingrese un NIP para su cuenta: ");
+                Console.Write("Ingrese un NIP para su cuenta: ");
                 oUniversitario.iNIP = Convert.ToInt32(Console.ReadLine());
 
                 if (_lstUniversitarios == null)
@@ -39,13 +39,13 @@ namespace BancoLibertad.CuentaBancaria
                     iIdCuenta = _lstUniversitarios.Count;
                 }
 
-                oUniversitario.dSaldo = 10000;
+                oUniversitario.dSaldo = 0;
 
                 _lstUniversitarios.Add(oUniversitario);
 
                 Console.Clear();
-                Console.WriteLine("Bienvenido, " + oUniversitario.cNombre + ".\n");
-                Console.WriteLine("Su numero de cuenta es: " + oUniversitario.iIdClienteUniversitario);
+                Console.WriteLine("\nBienvenido, " + oUniversitario.cNombre + ".\n");
+                Console.WriteLine("\nSu numero de cuenta es: " + oUniversitario.iIdClienteUniversitario+"\n");
             }
             catch (FormatException)
             {
@@ -60,17 +60,18 @@ namespace BancoLibertad.CuentaBancaria
             int iIdCuenta;
             try
             {
-                Console.WriteLine("Por favor ingrese su número de cuenta: ");
+                Console.WriteLine("Ingrese su número de cuenta: ");
                 iIdCuenta = Convert.ToInt32(Console.ReadLine());
                 try
                 {
                     if (iIdCuenta == _lstUniversitarios[iIdCuenta].iIdClienteUniversitario)
                     {
-                        Console.WriteLine("Por favor ingrese su NIP: ");
+                        Console.WriteLine("Digite su NIP: ");
                         int iNIP = Convert.ToInt32(Console.ReadLine());
                         if (iNIP != _lstUniversitarios[iIdCuenta].iNIP)
                         {
-                            Console.WriteLine("El NIP ingresado es incorrecto.");
+                            Console.WriteLine("\nEl NIP ingresado es incorrecto,redirigiendo al menú principal...\n");
+                            iIdCuenta = -1;
                         }
                         else
                         {
@@ -81,7 +82,7 @@ namespace BancoLibertad.CuentaBancaria
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Console.WriteLine("No existe este número de cuenta.");
+                    Console.WriteLine("\nLa cuenta a la cual quiere ingresar no existe, redirigiendo al Menú Principal...");
                     iIdCuenta = -1;
                 }
 
@@ -90,6 +91,13 @@ namespace BancoLibertad.CuentaBancaria
             {
                 Console.WriteLine("Por favor ingrese un número válido.");
                 iIdCuenta = -1;
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("\nLa cuenta a la cual quiere ingresar no existe, redirigiendo al Menú Principal...");
+                iIdCuenta = -1;
+
+
             }
             return iIdCuenta;
         }
@@ -104,7 +112,7 @@ namespace BancoLibertad.CuentaBancaria
                 }
                 else
                 {
-                    Console.WriteLine("Usted no cuenta con el saldo suficiente para realizar esta transacción.");
+                    Console.WriteLine("\nUsted no cuenta con el saldo suficiente para realizar esta transacción.");
                 }
             }
             else
@@ -131,6 +139,37 @@ namespace BancoLibertad.CuentaBancaria
                 iIdCuenta = -1;
             }
             return iIdCuenta;
+        }
+
+        public new void Depositar(int iIdCuentaDeposito, int iTipoCuenta, decimal dMonto, string cConcepto)
+        {
+            if (iTipoCuenta == 1)
+            {
+                _lstNormal[iIdCuentaDeposito].dSaldo += dMonto;
+                Console.WriteLine("\n\nSe a depositado con exito: $" + dMonto + " a la cuenta de " + _lstNormal[iIdCuentaDeposito].cNombre + " " + _lstNormal[iIdCuentaDeposito].cApellido + " por concepto de " + cConcepto);
+            }
+            else if (iTipoCuenta == 2)
+            {
+                _lstUniversitarios[iIdCuentaDeposito].dSaldo += dMonto;
+                Console.WriteLine("\n\nSe a depositado con exito: $" + dMonto + " a la cuenta universitaria de " + _lstUniversitarios[iIdCuentaDeposito].cNombre + " " + _lstUniversitarios[iIdCuentaDeposito].cApellido + " por concepto de " + cConcepto);
+            }
+
+
+        }
+        public new void Depositar(int iIdCuenta, int iTipoCuenta, decimal dMonto)
+        {
+            if (iTipoCuenta == 1)
+            {
+                _lstNormal[iIdCuenta].dSaldo += dMonto;
+                Console.WriteLine("\n\nSe a depositado con exito: $" + dMonto + " a tu cuenta con numero: " + _lstNormal[iIdCuenta].iIdClienteNormal);
+            }
+            else if (iTipoCuenta == 2)
+            {
+                _lstUniversitarios[iIdCuenta].dSaldo += dMonto;
+                Console.WriteLine("\n\nSe a depositado con exito: $" + dMonto + " a tu cuenta universitaria con numero: " + _lstUniversitarios[iIdCuenta].iIdClienteUniversitario);
+            }
+
+
         }
 
     }

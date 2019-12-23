@@ -17,23 +17,27 @@ namespace BancoLibertad.CuentaBancaria
         public abstract int ValidarNumeroCuenta();
 
         public string ConsultarSaldo(decimal dSaldo) {
-            return "Su saldo es: " + dSaldo + ".";
+            return "\nSu saldo es: " + dSaldo + ".";
         }
 
         public string ObtenerConcepto()
         {
-            Console.WriteLine("Ingrese el concepto del depósito: ");
-
+            Console.WriteLine("\nIngrese el concepto del depósito: ");
             return Console.ReadLine();
         }
-
-        public void Depositar(int iIdCuenta, decimal dMonto)
+        public decimal MontoDepositar()
         {
+            Console.WriteLine("\nIngrese el monto a depositar: ");
+            return Convert.ToInt32(Console.ReadLine());
         }
 
-        public void Depositar(decimal dMonto)
+
+        public void Depositar(int iIdCuentaDeposito, int iTipoCuenta, decimal dMonto, string cConcepto) { }
+       
+
+        public void Depositar(int iIdCuenta, int iTipoCuenta, decimal dMonto)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
