@@ -106,6 +106,7 @@ namespace BancoLibertad
                 switch (Console.ReadLine())
                 {
                     case "1":
+                        Console.Clear();
                         Console.Write("Por favor indique el monto a retirar: ");
                         try
                         {
@@ -129,6 +130,7 @@ namespace BancoLibertad
                         break;
 
                     case "2":
+                        Console.Clear();
                         Console.WriteLine("\nSeleccione el tipo de deposito:\n\n1. Deposito a otra cuenta\n2. Deposito a cuenta personal");
                         try
                         {
@@ -221,16 +223,8 @@ namespace BancoLibertad
                             }
                             else if (_iOpcionDeposito == 2)
                             {
-                                Console.WriteLine("\nSeleccione su tipo de cuenta: \n\n1. Cuenta Normal\n2. Cuenta Universitaria");
-                                try
-                                {
-                                    int _iOpcionCuenta = Convert.ToInt32(Console.ReadLine());
-
-
-                                    if (_iOpcionCuenta == 1)
+                                    if (iTipoCuenta == 1)
                                     {
-                                        iTipoCuenta = 1;
-
                                         bool verificador = true;
                                         while (verificador)
                                         {
@@ -251,9 +245,8 @@ namespace BancoLibertad
 
 
                                     }
-                                    else if (_iOpcionCuenta == 2)
+                                    else if (iTipoCuenta == 2)
                                     {
-                                        iTipoCuenta = 2;
                                         bool verificador = true;
                                         while (verificador)
                                         {
@@ -278,13 +271,6 @@ namespace BancoLibertad
 
                                     }
 
-
-                                }
-                                catch (FormatException)
-                                {
-                                    Console.WriteLine("Por favor elija una opción valida.");
-                                }
-
                             }
                             else
                             {
@@ -301,6 +287,7 @@ namespace BancoLibertad
                         break;
 
                     case "3":
+                        Console.Clear();
                         if (iTipoCuenta == 1)
                         {
                             Console.WriteLine(_oNormal.ConsultarSaldo(_oNormal._lstNormal[iIdCuenta].dSaldo));
