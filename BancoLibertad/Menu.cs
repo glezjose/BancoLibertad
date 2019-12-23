@@ -215,16 +215,8 @@ namespace BancoLibertad
                             }
                             else if (_iOpcionDeposito == 2)
                             {
-                                Console.WriteLine("\nSeleccione su tipo de cuenta: \n\n1. Cuenta Normal\n2. Cuenta Universitaria");
-                                try
-                                {
-                                    int _iOpcionCuenta = Convert.ToInt32(Console.ReadLine());
-
-
-                                    if (_iOpcionCuenta == 1)
+                                    if (iTipoCuenta == 1)
                                     {
-                                        iTipoCuenta = 1;
-
                                         bool verificador = true;
                                         while (verificador)
                                         {
@@ -245,9 +237,8 @@ namespace BancoLibertad
 
 
                                     }
-                                    else if (_iOpcionCuenta == 2)
+                                    else if (iTipoCuenta == 2)
                                     {
-                                        iTipoCuenta = 2;
                                         bool verificador = true;
                                         while (verificador)
                                         {
@@ -271,13 +262,6 @@ namespace BancoLibertad
                                         Console.WriteLine("Por favor elija una opción valida.");
 
                                     }
-
-
-                                }
-                                catch (FormatException)
-                                {
-                                    Console.WriteLine("Por favor elija una opción valida.");
-                                }
 
                             }
                             else
