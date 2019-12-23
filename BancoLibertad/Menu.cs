@@ -106,6 +106,7 @@ namespace BancoLibertad
                 switch (Console.ReadLine())
                 {
                     case "1":
+                        Console.Clear();
                         Console.Write("Por favor indique el monto a retirar: ");
                         try
                         {
@@ -129,6 +130,7 @@ namespace BancoLibertad
                         break;
 
                     case "2":
+                        Console.Clear();
                         Console.WriteLine("\nSeleccione el tipo de deposito:\n\n1. Deposito a otra cuenta\n2. Deposito a cuenta personal");
                         try
                         {
@@ -279,6 +281,7 @@ namespace BancoLibertad
                         break;
 
                     case "3":
+                        Console.Clear();
                         if (iTipoCuenta == 1)
                         {
                             Console.WriteLine(_oNormal.ConsultarSaldo(_oNormal._lstNormal[iIdCuenta].dSaldo));
